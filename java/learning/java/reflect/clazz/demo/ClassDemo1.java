@@ -1,4 +1,4 @@
-package learning.java.reflect.demo;
+package learning.java.reflect.clazz.demo;
 
 
 public class ClassDemo1 {
@@ -18,7 +18,7 @@ public class ClassDemo1 {
         //is equals
         System.out.println(c1 == c2);
 
-        Class<?> c3 = Class.forName("learning.java.reflect.demo.Foo");
+        Class<?> c3 = Class.forName("Foo");
 
         //is equals
         System.out.println(c1 == c3);

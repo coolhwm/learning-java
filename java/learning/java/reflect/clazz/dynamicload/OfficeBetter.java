@@ -1,4 +1,4 @@
-package learning.java.reflect.dynamicload;
+package learning.java.reflect.clazz.dynamicload;
 
 public class OfficeBetter{
 	public static void main(String[] args){

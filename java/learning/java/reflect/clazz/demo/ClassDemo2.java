@@ -1,4 +1,4 @@
-package learning.java.reflect.demo;
+package learning.java.reflect.clazz.demo;
 
 public class ClassDemo2 {
     public static void main(String[] args) {
