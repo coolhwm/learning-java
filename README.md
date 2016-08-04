@@ -11,5 +11,11 @@
 
 > [Java I/O 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/io)
 
+## Maven 构建Java Web项目
+- Day1：Maven基本概念与安装；
+
+> [Maven 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/maven)
+
 ## Java8 新特性
 - 未开始；
+
