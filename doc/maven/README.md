@@ -79,25 +79,87 @@ mvn -version
 	- main
 		- java
 			- package
+		- resources
 	- test
 		- java
 			- package
-	- resources
 - target
 	- classes
 	- test-classes
 ```
 
 ### 2.2 pom.xml
-- `modelVersion`：版本，固定为`4.0.0`；
-- `groupId`：项目的包名；使用点符号分隔；
-- `artifactId`：模块名、项目名；使用中划线分隔；
-- `version`：版本号；
-- `dependencies`
-	- `dependency`：依赖包；
-		- `groupId`
-		- `artifactId`
-		- `version`
+
+> Project Object Model，项目对象模型。通过xml格式保存的pom.xml文件。作用类似ant的build.xml文件，功能更强大。该文件用于管理：源代码、配置文件、开发者的信息和角色、问题追踪系统、组织信息、项目授权、项目的url、项目的依赖关系等等。
+
+#### 2.2.1 基本结构
+- `project` ：根元素；
+	- `modelVersion`：版本，固定为`4.0.0`；
+	- `groupId`：项目的包名；使用点符号分隔；公司名称反写+项目名；最好和包名吻合；
+	- `artifactId`：模块名、项目名；使用中划线分隔；项目名-模块名；
+	- `version`：版本号；`<主版本>.<次版本>.<增量版本>`；
+		- `SNAPSHOT`：快照版本；
+		- `ALPHA`：内侧版本；
+		- `BEAT`：公测版本；
+		- `RELEASE`：稳定版本；
+		- `GA`：正式发布；
+	- `packaging`：打包方式，包含`JAR`,`WAR`,`POM`等；
+	- `name`：项目的描述名称；
+	- `url`：项目地址；
+	- `description`：项目描述；
+	- `developers`：开发人员信息；
+	- `licenses`：许可信息；
+	- `orginazation`：组织信息；
+	- `dependencies`：依赖列表；
+		- `dependency`：依赖包；
+			- `groupId`
+			- `artifactId`
+			- `version`
+			- `type`
+			- `scope`：依赖的范围
+			- `optional`：是否可选；`true`或`false`，
+			- `exclusions`：排除依赖传递列表；
+	- `dependencyManagement`：依赖管理；把依赖定义在父模块中，在子模块中可以继承；
+	- `build`：对构建行为提供支持；
+		- `plugins`：插件类表；
+			- `plugin`：插件；
+				- `groupId`；
+				- `artifactId`；
+				- `version`；
+	- `parent`：在子模块中继承父模块的`POM`；
+	- `modules`：聚合运行多个maven项目；
+		- `module`：模块；
+
+#### 2.2.2 依赖的范围
+依赖的范围通过`pom.xml`中`dependency`的`scope`属性定义；
+- `compile`：在编译、测试、运行都有效，是默认的取值；
+- `provided`：在编译和测试有效，在运行时不包括，典型例子为`sevlet`API在容器中有提供，运行时不需要包含；
+- `runtime`：只在运行、测试时有效；典型是测试或运行时才需要`JDBC`具体的驱动依赖；
+- `test`：只在测试时有效；
+- `system`：编译和测试时有效，与本地系统相关联；
+- `import`：导入范围，只用在`dependencyManagement`中，表示从其他pom中导入`dependency`的配置；
+
+#### 2.2.3 依赖的传递
+- A依赖B，B依赖C，那么A传递依赖C；
+- 在A中加入B的依赖，Maven会发现传递依赖，自动解析并加入C的依赖；
+- 在`exclusions`中可以定义需要取消传递依赖的坐标；
+
+#### 2.2.4 依赖冲突
+- 基本概念
+	- 若A和B同时依赖不同版本的C，那么Maven需要确定具体依赖哪个版本的C构件；
+- 冲突处理原则
+	- 短路由优先：优先解析路径较短的版本；
+	- 先声明优先：相同的路径长度，谁的依赖声明靠前，就依赖哪个版本；
+
+#### 2.2.5 聚合项目
+- 将一个pom作为其他的pom的容器，`install`会分别编译、测试、安装所有的模块；
+- 将`package`属性设置为`pom`；
+- 使用`modules`将多个模块包含在内；
+
+#### 2.2.6 抽象项目
+- 可以将依赖定义到一个`全局pom`中，子pom可以继承父pom；
+- 使用`dependencyManagement`在父pom中定义公共的依赖；
+- 使用`parent`应用父项目的坐标；
 
 ### 2.3 常用命令
 - `mvn compile` - 编译项目
@@ -125,6 +187,7 @@ mvn -version
 -Dversion=版本号
 -Dpackage=包名
 ```
+*如何自定义archetype？*
 
 ## 3. 生命周期
 ### 3.1 项目构建过程
@@ -132,6 +195,7 @@ mvn -version
 
 ### 3.2 Maven的生命周期
 执行每个阶段中的步骤时，总会先执行这个阶段的前序步骤。
+```
 - clean：清理项目
 	- pre-clean
 	- clean
@@ -146,7 +210,7 @@ mvn -version
 	- site
 	- post-site
 	- site-deploy
-
+```
 ### 3.3 插件
 - Maven本身不包含编译等功能，这些功能是通过插件来实现的；
 - 配置插件可以使Maven实现一些额外的功能；
@@ -171,4 +235,12 @@ mvn -version
     </plugins>
 </build>
 ```
+
+## 4. 构建Web项目
+- 使用`maven-archetype-webapp`初始化项目；
+- 导入`javax.servlet`的依赖，并将`scope`设置为`provided`；
+- 配置`packaging`为`war`；
+- 配置Web项目的Facets；
+- 配置输出路径；
+- 使用Maven插件可以直接`jetty`,`Tomcat`等Web容器；
 
