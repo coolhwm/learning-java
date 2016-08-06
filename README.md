@@ -11,7 +11,7 @@
 
 > [Java I/O 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/io)
 
-## Maven 构建Java Web项目
+## Maven
 - Day1：Maven基本概念与安装(2016/08/05)；
 - Day2：Maven生命周期与基本命令(2016/08/06)；
 - Day3：pom.xml详细分析(2016/08/07)；
