@@ -8,8 +8,15 @@
 
 ## Java I/O
 - Day1：复习编码基本知识，File类及RandomAccessFile的使用(2016/08/03)；
+- Day2：复习常用的字节流，字符流的使用方式(2016/08/07)；
 
 > [Java I/O 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/io)
+
+## Java 多线程
+- Day1：复习线程与进程的基本概念（2016/08/08）；
+
+> [Java多线程 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/concurrent)
+
 
 ## Maven
 - Day1：Maven基本概念与安装(2016/08/05)；
