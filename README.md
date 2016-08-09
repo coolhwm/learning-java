@@ -9,6 +9,7 @@
 ## Java I/O
 - Day1：复习编码基本知识，File类及RandomAccessFile的使用(2016/08/03)；
 - Day2：复习常用的字节流，字符流的使用方式(2016/08/07)；
+- Day3：复习序列化流的使用方式(2016/08/010)；
 
 > [Java I/O 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/io)
 
@@ -25,6 +26,11 @@
 - Day3：pom.xml详细分析(2016/08/07)；
 
 > [Maven 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/maven)
+
+## jUnit 4
+- Day1：最佳实践(2016/08/10)；
+
+> [jUnit4 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/junit)
 
 ## Java8 新特性
 - 未开始；

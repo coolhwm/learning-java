@@ -151,3 +151,42 @@ while((line = br.readLine()) != null){
     System.out.println(line);
 }
 ```
+
+## 5. 序列化流
+- 基本概念
+	- 对象的序列化，就是将`Object`转换成`byte`序列，反之叫做对象的反序列化；
+	- 对象要序列化，必须实现`Serializable`接口，否则将出现异常；接口没有任何方法，只是一个规定与标准；
+	- 序列化后的对象，可以保存在文件中，也可以通过网络进行传输；
+	- 字段加上`transient`的字段默认不会被序列化；需要自己完成元素的序列化；
+- 自定义序列化
+	- 可以在对象中实现`writeObject`和`readObject`方法自定义序列化行为；
+	- 可以实现`Externalizable`接口自定义序列化行为；
+	- 自定义序列化可以提高性能，可以进行加密等安全操作；
+- 继承关系时的序列化操作
+	- 父类实现`Serializable`接口，子类自动实现了该接口；
+	- 若父类没有实现`Serializable`则会显示调用其构造方法创建实例；
+```
+//自定义序列化
+private void writeObject(java.io.ObjectOutputStream s) throws IOException {
+    s.defaultWriteObject();
+    s.writeUTF(stuAge);  //自定义序列化字段
+}
+private void readObject(java.io.ObjectInputStream s) throws IOException, ClassNotFoundException {
+    s.defaultReadObject();
+    this.stuAge = s.readUTF(); //自定义序列化字段
+}
+```
+
+### 5.1 ObjectOutputStream
+- 基本概念
+	- 是一个包装的过滤流，需要使用一个`OutputStream`构造；
+	- 完成对象的序列化；
+- 基本API
+	- `wirteObject`：将一个对象序列化并写入流中；
+
+### 5.2 ObjectInputStream 
+- 基本概念
+	- 是一个包装的过滤流，需要使用一个`IntputStream`构造；
+	- 完成对象的反序列化；
+- 基本API
+	- `readObject`：将一个对象反序列化并生成一个对象实例；
