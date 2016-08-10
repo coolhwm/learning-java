@@ -29,6 +29,7 @@
 
 ## jUnit 4
 - Day1：最佳实践(2016/08/10)；
+- Day2：常用注解、测试套件、参数化测试、Spring整合(2016/08/11)；
 
 > [jUnit4 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/junit)
 
