@@ -16,9 +16,14 @@
 ## Java 多线程
 - Day1：复习线程与进程的基本概念（2016/08/08）；
 - Day2：多线程基础知识复习完毕（2016/08/09）；
+- Day3：复习synchornized与volatile（2016/08/14）；
 
 > [Java多线程 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/concurrent)
 
+## Java 注解
+- Day1：复习注解基本知识（2016/08/14）；
+
+> [Java注解 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/annotation)
 
 ## Maven
 - Day1：Maven基本概念与安装(2016/08/05)；
