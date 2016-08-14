@@ -1,4 +1,4 @@
-package learning.java.annotation;
+package learning.java.annotation.demo;
 
 public class AnnotationDemo {
 

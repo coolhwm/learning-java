@@ -22,8 +22,14 @@
 
 ## Java 注解
 - Day1：复习注解基本知识（2016/08/14）；
+- Day2：复习通过反射解析各种注解（2016/08/15）；
 
 > [Java注解 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/annotation)
+
+## Java Socket
+- Day1：复习网络编程的基本概念（2016/08/15）；
+
+> [Java Socket 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/socket)
 
 ## Maven
 - Day1：Maven基本概念与安装(2016/08/05)；
