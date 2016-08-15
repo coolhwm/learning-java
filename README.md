@@ -28,6 +28,7 @@
 
 ## Java Socket
 - Day1：复习网络编程的基本概念（2016/08/15）；
+- Day2：复习TCP网络编程（2016/08/16）；
 
 > [Java Socket 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/socket)
 

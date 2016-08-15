@@ -1,4 +1,4 @@
-package learning.java.socket;
+package learning.java.socket.demo;
 
 
 import org.junit.Test;

@@ -62,6 +62,7 @@
 - 服务端接受请求后创建`连接socket`，通信刚开始；
 - 通信过程中，服务端和客户端通过`InputStream`和`OutputStream`进行数据交换；
 - 结束通信时，双方需要分别关闭`socket`及相关资源；
+![通信模型](./1471185721116.png)
 
 ### 4.2 通信实现步骤
 - 创建`ServerSocket`和`Socket`；
@@ -91,3 +92,57 @@
 	- `getOutputStream()`：获取输出流；
 	- `shutdownInput()`：关闭输入流；
 	- `shutdownOutput()`：关闭输出流；
+
+### 4.5 简单范例
+服务端：
+``` java
+//启动服务端
+ServerSocket server = new ServerSocket(8888);
+System.out.println("服务器即将启动，等待客户端连接");
+//接受请求
+Socket socket = server.accept();
+System.out.println("服务端已接收客户端请求：" + socket.getInetAddress().toString());
+//读取信息
+InputStream is = socket.getInputStream();
+//缓冲流
+BufferedReader br = new BufferedReader(new InputStreamReader(is));
+//读取流数据
+String info;
+while((info = br.readLine()) != null){
+   System.out.println("客户端提交信息 info = " + info);
+}
+System.out.println("客户端关闭连接，信息传递完毕");
+//关闭资源
+socket.shutdownInput();
+br.close();
+socket.close();
+server.close();
+```
+
+客户端：
+``` java
+//建立socket
+Socket socket = new Socket("127.0.0.1", 8888);
+//获取输出流，发送消息
+OutputStream os = socket.getOutputStream();
+PrintWriter pw = new PrintWriter(os);
+for (int i = 0; i < 10; i++) {
+    pw.println("--->" + i);
+    pw.flush();
+}
+//关闭资源
+socket.shutdownOutput();
+pw.close();
+socket.close();
+```
+
+## 4. UDP 通信
+### 4.1 基本概念
+- UDP协议是无连接，不可靠的；
+- 以数据报`Datagram`作为数据载体；
+- 使用`DatagramPacket`和`DatagrameSocket`进行通信；
+
+### 4.2 DatagramPacket
+
+
+### 4.2 DatagramSocket
