@@ -1,4 +1,4 @@
-# Java Socket - 学习笔记
+# Java Socket 编程 - 学习笔记
 
 ## 1. 简介
 - 网络通信的必备条件
@@ -68,7 +68,7 @@
 - 创建`ServerSocket`和`Socket`；
 - 打开连接到`Socket`的输入/输出流；
 - 按照协议对`Socket`进行读/写操作；
-- 关闭输入流、输出流，关闭`Socket`；
+- 关闭`Socket`（关闭`Socket`时，与之相关的流也会被关闭）
 
 ### 4.3 ServerSocket
 > 此类实现服务器套接字。服务器套接字等待请求通过网络传入。它基于该请求执行某些操作，然后可能向请求者返回结果。 
@@ -138,11 +138,56 @@ socket.close();
 
 ## 4. UDP 通信
 ### 4.1 基本概念
-- UDP协议是无连接，不可靠的；
-- 以数据报`Datagram`作为数据载体；
-- 使用`DatagramPacket`和`DatagrameSocket`进行通信；
+- 基础概念
+	- UDP协议是无连接，不可靠的，速度相对较快；
+	- 以数据报`Datagram`作为数据载体，在数据报中标示数据所要到达的目的地和端口号；
+	- 使用`DatagramPacket`和`DatagrameSocket`进行通信；
+- 服务端实现步骤
+	- 创建`DatagramSocket`，指定端口号；
+	- 创建`DatagramPacket`；
+	- 接受客户端发送的数据信息；
+	- 读取数据；
+- 客户端实现步骤
+	- 定义发送的数据信息；
+	- 创建`DatagramPacket`，包含要发送的信息；
+	- 创建`DatagramSocket`；
+	- 发送信息；
 
 ### 4.2 DatagramPacket
+- 构造发送数据报
+``` java
+//发送数据包，指定内容和目的地
+new DatagramPacket(data, length, address, port)
+```
 
+- 构造接收数据报
+``` java
+//接收数据报，指定缓存和长度
+new DatagramPacket(buff, offset, length)
+```
 
 ### 4.2 DatagramSocket
+- 构造客户端
+``` java
+//定义服务器的IP地址
+InetAddress ip = InetAddress.getByName("127.0.0.1");
+```
+
+- 构造服务端
+``` java
+//指定绑定本地的端口号
+DatagramSocket socket = new DatagramSocket(8800);
+```
+
+- 发送/接收数据报
+``` java
+//接收数据报
+socket.receive(packet);
+//发送数据报
+socket.send(packet);
+```
+
+## 5. 继续学习
+- 多线程；
+- 传输对象；
+- 传输文件；

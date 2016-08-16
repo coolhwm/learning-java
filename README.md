@@ -29,6 +29,7 @@
 ## Java Socket
 - Day1：复习网络编程的基本概念（2016/08/15）；
 - Day2：复习TCP网络编程（2016/08/16）；
+- Day3：复习UDP网络编程（2016/08/17）；
 
 > [Java Socket 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/socket)
 
@@ -44,6 +45,11 @@
 - Day2：常用注解、测试套件、参数化测试、Spring整合(2016/08/11)；
 
 > [jUnit4 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/junit)
+
+## 微信公众号开发
+- Day1：微信公众号基本概念(2016/08/17)；
+
+> [微信公众号开发 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/wechat)
 
 ## Java8 新特性
 - 未开始；
