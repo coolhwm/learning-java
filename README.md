@@ -48,6 +48,7 @@
 
 ## 微信公众号开发
 - Day1：微信公众号基本概念(2016/08/17)；
+- Day2：完成文本消息的接收和响应(2016/08/19)；
 
 > [微信公众号开发 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/wechat)
 

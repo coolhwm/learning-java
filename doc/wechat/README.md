@@ -1,4 +1,7 @@
 # 微信公众号开发 - 学习笔记
+@(01. 写字台)
+
+[TOC]
 
 ## 1. 基本信息
 ### 1.1 微信和公众号
@@ -53,4 +56,79 @@
 	- 公众号设置
 - 开发者中心
 
-## 2. 编辑模式开发
+## 1. 编辑模式开发
+- 自动回复
+	- 被添加自动回复；
+	- 关键词回复；
+	- 被动回复；
+- 素材管理
+	- 单图文；
+	- 多图文；
+	- 语音；
+	- 文字；
+- 自定义菜单
+	- `click`类型：发送消息等；
+	- `view`类型：跳转页面；
+
+## 2. 开发模式
+### 2.1 开发环境
+- 微信公众号
+- 外网映射工具 `ngrok`
+``` bash
+//启动外网映射工具
+natapp.exe -authtoken e6aabb062d0f76a4
+```
+
+- 开发模式与编辑模式是互斥的；
+
+### 2.2 验证请求
+开发者提交信息后，微信服务器将发送GET请求到填写的服务器地址URL上， 携带消息：
+```
+//微信加密签名
+// signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数。
+signature	
+//时间戳
+timestamp	
+//随机数
+nonce
+//	随机字符串
+echostr	
+```
+开发者通过检验`signature`对请求进行校验（下面有校验方式）。若确认此次`GET`请求来自微信服务器，请原样返回`echostr`参数内容，则接入生效，成为开发者成功，否则接入失败。加密/校验流程如下：
+- 将`token`、`timestamp`、`nonce`三个参数进行字典序排序
+- 将三个参数字符串拼接成一个字符串进行`sha1`加密
+- 开发者获得加密后的字符串可与`signature`对比，标识该请求来源于微信
+
+校验成功后，开发者需要将`echostr`参数返回给微信服务器；
+
+### 2.3 接受文本消息
+当普通微信用户向公众账号发消息时，微信服务器将POST消息的XML数据包到开发者填写的URL上，消息报文格式：
+``` xml
+<xml>
+ <!-- 开发者微信号 -->
+ <ToUserName><![CDATA[toUser]]></ToUserName>
+ <!-- 发送方帐号（一个OpenID） -->
+ <FromUserName><![CDATA[fromUser]]></FromUserName>
+ <!-- 消息创建时间 （整型） -->
+ <CreateTime>1348831860</CreateTime>
+ <!-- text -->
+ <MsgType><![CDATA[text]]></MsgType>
+ <!-- 文本消息内容 -->
+ <Content><![CDATA[this is a test]]></Content>
+ <!-- 消息id，64位整型 -->
+ <MsgId>1234567890123456</MsgId>
+ </xml>
+```
+
+
+### 2.4 回复文本消息
+当用户发送消息给公众号时（或某些特定的用户操作引发的事件推送时），会产生一个`POST`请求，开发者可以在`响应包（Get）`中返回特定`XML`结构，来对该消息进行响应（现支持回复文本、图片、图文、语音、视频、音乐）。严格来说，发送被动响应消息其实并不是一种接口，而是对微信服务器发过来消息的一次回复。
+``` xml
+<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>12345678</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[你好]]></Content>
+</xml>
+```
