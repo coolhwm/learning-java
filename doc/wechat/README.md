@@ -1,7 +1,4 @@
 # 微信公众号开发 - 学习笔记
-@(01. 写字台)
-
-[TOC]
 
 ## 1. 基本信息
 ### 1.1 微信和公众号
@@ -196,9 +193,10 @@ echostr
 </xml>
 ```
 
-#### 3.4.3 图片消息
-使用图片接口需要使用`MediaId`，需要先将图片通过素材接口上传到服务端；
+#### 3.4.3 图片/语音/视频消息
+使用图片接口需要使用`MediaId`，需要先将图片通过素材接口上传到服务端；另外， 语音消息和视频消息的报文格式是类似的，对文件的大小和格式由一定的限制。
 ``` xml
+<!-- 图片消息 -->
 <xml>
 	<ToUserName><![CDATA[toUser]]></ToUserName>
 	<FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -208,6 +206,38 @@ echostr
 		<!-- 通过素材管理中的接口上传多媒体文件，得到的id -->
 		<MediaId><![CDATA[media_id]]></MediaId>
 	</Image>
+</xml>
+
+<!-- 语音消息 -->
+<Voice>
+	<MediaId><![CDATA[media_id]]></MediaId>
+</Voice>
+
+<!-- 视频消息 -->
+Video>
+	<MediaId><![CDATA[media_id]]></MediaId>
+	<Title><![CDATA[title]]></Title>
+	<Description><![CDATA[description]]></Description>
+</Video> 
+```
+#### 3.4.4 音乐消息
+音乐消息使用URL进行播放，缩略图需要使用媒体ID；
+```xml
+<xml>
+	<ToUserName><![CDATA[toUser]]></ToUserName>
+	<FromUserName><![CDATA[fromUser]]></FromUserName>
+	<CreateTime>12345678</CreateTime>
+	<MsgType><![CDATA[music]]></MsgType>
+	<Music>
+		<Title><![CDATA[TITLE]]></Title>
+		<Description><![CDATA[DESCRIPTION]]></Description>
+		<!-- 音乐链接 -->
+		<MusicUrl><![CDATA[MUSIC_Url]]></MusicUrl>
+		<!-- 高质量音乐链接（WIFI播放） -->
+		<HQMusicUrl><![CDATA[HQ_MUSIC_Url]]></HQMusicUrl>
+		<!-- 缩略图 -->
+		<ThumbMediaId><![CDATA[media_id]]></ThumbMediaId>
+	</Music>
 </xml>
 ```
 
@@ -232,8 +262,12 @@ https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID
 #### 3.6.1 临时素材
 >　对于临时素材，每个素材（media_id）会在开发者上传或粉丝发送到微信服务器3天后自动删除（所以用户发送给开发者的素材，若开发者需要，应尽快下载到本地），以节省服务器资源
 
-请求参数：
+- `image` - 图片；
+- `voice`- 语音；
+- `video` - 视频；
+- `thumb` - 缩略图；
 
+请求参数：
 ``` 
 //调用接口凭证
 access_token
@@ -248,8 +282,94 @@ media
 {"type":"TYPE","media_id":"MEDIA_ID","created_at":123456789}
 ```
 
-#4. 百度 BAE
+### 3.7 菜单管理
+#### 3.7.1 基本规则
+- 最多三个一级菜单，每个一级菜单最多5个二级菜单；
+- 一级菜单最多4个汉字，二级菜单最多7个汉字，多余的字符会被省略；
+- 5分钟请求一个菜单，重新关注时会立即刷新；
+
+#### 3.7.2 菜单类型
+- `click`：事件按钮，推送`event`消息给服务器，通过`key`判断按钮的类型；
+- `view`：跳转按钮，使用`url`进行跳转展现，`key`就是`url`的值；
+- `scancode_push`：二维码扫描按钮，扫描结果会展现并推送给服务端；
+- `scancode_waitmsg`：二维码扫描等待按钮，扫描结果发送到服务端，客户端等待服务端响应；
+- `pic_sysphoto`：拍照按钮，拍照结果会发送到服务端，服务端可以进行响应；
+- `pic_weixin`：相册选择按钮，选择的照片会发送给服务端，服务端可以进响应；
+- `pic_photo_or_album`：拍照或相册选择按钮；
+- `location_select`：地理位置按钮：位置信息会发送给服务端，服务端可以进行响应；
+
+#### 3.7.3 创建菜单
+- 调用该接口可以创建自定义菜单；
+- 若已经存在 菜单，调用该接口将会覆盖原有的菜单配置；
+
+接口地址：
+```http
+POST https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN
+```
+报文格式：
+```
+ {
+	 /*按钮列表*/
+     "button":[
+     {	
+	      /*按钮类型*/
+          "type":"click",
+          /*按钮名称*/
+          "name":"今日歌曲",
+          /*按钮事件KEY*/
+          "key":"V1001_TODAY_MUSIC"
+      },
+      {
+           "name":"菜单",
+           /*二级按钮列表*/
+           "sub_button":[
+           {	
+               "type":"view",
+               "name":"搜索",
+               "url":"http://www.soso.com/"
+            }]
+       }]
+ }
+```
+#### 3.7.4 查询菜单
+``` http
+https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN
+```
+
+#### 3.7.5 删除菜单
+``` http
+https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN
+```
+
+
+
+#4. 百度开发者中心
+## 4.1 百度 BAE
 - 注册账号；
 - 新增部署；
 - SVN检出；
 - 部署发布；
+
+## 4.2 百度翻译API接口
+
+API地址：
+``` 
+http://api.fanyi.baidu.com/api/trans/vip/translate
+```
+请求参数：
+``` 
+q		//原文，UTF-8编码
+from	//翻译源语言
+to		//译文语言
+appid	//APP
+salt	//随机数	
+sign	//appid+q+salt+密钥 的MD5值
+```
+返回结果：
+```
+from			//翻译源语言
+to				//译文语言
+trans_result	//翻译结果
+	- src	//原文
+	- dst	//译文
+```
