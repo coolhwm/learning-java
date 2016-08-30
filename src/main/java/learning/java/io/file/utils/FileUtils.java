@@ -1,6 +1,8 @@
 package learning.java.io.file.utils;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * list File usage method, like filter, iterate
@@ -21,12 +23,15 @@ public class FileUtils {
         //iterate child files
         for (File file : files) {
             if (file.isDirectory()) {
-                System.out.println("--- start " + "directory: " + file.getPath() + " ---");
+                //System.out.println("--- start " + "directory: " + file.getPath() + " ---");
                 listDirectory(file);
-                System.out.println("--- end " + "directory： " + file.getPath() + " ---");
+                //System.out.println("--- end " + "directory： " + file.getPath() + " ---");
             }
             else{
-                System.out.println(file.getPath());
+                long l = file.lastModified();
+                Date date = new Date(l);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                System.out.println(file.getParent() + "\t" + file.getName() + "\t"  +  file.getPath() + "\t" + sdf.format(date) );
             }
         }
     }

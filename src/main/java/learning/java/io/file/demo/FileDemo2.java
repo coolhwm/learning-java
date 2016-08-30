@@ -16,7 +16,7 @@ public class FileDemo2 {
 
     @Test
     public void listFiles(){
-        File dir = new File("G:/apache-tomcat-6.0.37");
+        File dir = new File("G:/2/ServiceManageDeskFlowNX3");
         FileUtils.listDirectory(dir);
     }
 }
