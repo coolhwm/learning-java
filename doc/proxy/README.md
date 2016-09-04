@@ -72,7 +72,7 @@ public class CarCompositeProxy  implements Moveable{
 - 实现动态代理类时，必须要实现`InvocationHandler`接口；
 
 #### 2.2.2 关键元素
-![动态代理类图](./1473006589254.png)
+![动态代理类图](1473006589254.png)
 - `InvocationHandler#invok` - 事务处理器
 	- `obj`：被代理的对象；
 	- `method`：被代理的方法；
