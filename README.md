@@ -6,6 +6,11 @@
 
 > [Java反射 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/reflect)
 
+## Java 动态代理
+- Day1：静态代理及JDK动态代理基础（2016/09/05）；
+
+> [Java动态代理 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/proxy)
+
 ## Java I/O
 - Day1：复习编码基本知识，File类及RandomAccessFile的使用(2016/08/03)；
 - Day2：复习常用的字节流，字符流的使用方式(2016/08/07)；
