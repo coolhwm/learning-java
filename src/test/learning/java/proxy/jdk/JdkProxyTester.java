@@ -1,6 +1,5 @@
 package learning.java.proxy.jdk;
 
-import learning.java.proxy.jdk.handler.TimeHandler;
 import learning.java.proxy.normal.Moveable;
 import learning.java.proxy.normal.impl.Car;
 import org.junit.Test;

@@ -8,6 +8,7 @@
 
 ## Java 动态代理
 - Day1：静态代理及JDK动态代理基础（2016/09/05）；
+- Day2：CGLIB动态代理及实现原理（2016/09/06）；
 
 > [Java动态代理 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/proxy)
 

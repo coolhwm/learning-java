@@ -13,7 +13,7 @@ public class SpringTest {
 
     @BeforeClass
     public static void setUpBeforeClass(){
-        context = new ClassPathXmlApplicationContext("learning/applicationContext.xml");
+        context = new ClassPathXmlApplicationContext("learning/java/applicationContext.xml");
     }
 
     @Test
