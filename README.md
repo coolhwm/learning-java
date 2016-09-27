@@ -60,6 +60,12 @@
 
 > [微信公众号开发 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/wechat)
 
+## Lucene
+- Day1：学习Lucene的数学模型及基本概念（2016/09/28）；
+
+> [Lucene 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/lucene)
+
+
 ## Java8 新特性
 - 未开始；
 
