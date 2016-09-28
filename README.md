@@ -62,6 +62,7 @@
 
 ## Lucene
 - Day1：学习Lucene的数学模型及基本概念（2016/09/28）；
+- Day2：学习Lucene的索引结构（2016/09/29）；
 
 > [Lucene 学习笔记](https://github.com/coolhwm/learning-java/tree/master/doc/lucene)
 
